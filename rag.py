@@ -24,7 +24,7 @@ def ask_question_with_auto_key_switch(prompt, question, transcript, api_keys):
     for idx, api_key in enumerate(api_keys):
         try:
             os.environ["GOOGLE_API_KEY"] = api_key
-            llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.1)
+            llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.1)
             final_prompt = prompt.invoke({"context": transcript, "question": question})
             answer = llm.invoke(final_prompt)
             if answer.content.lower() != "exit":
