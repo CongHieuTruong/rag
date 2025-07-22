@@ -82,4 +82,4 @@ The assistant will load all documents, prompt for a question (you can edit the q
 
 ## License
 
-MIT License (or specify your license here)
+MIT License
