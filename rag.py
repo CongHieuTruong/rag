@@ -27,9 +27,12 @@ def ask_question_with_auto_key_switch(prompt, question, transcript, api_keys):
             llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.1)
             final_prompt = prompt.invoke({"context": transcript, "question": question})
             answer = llm.invoke(final_prompt)
-            if answer.content.lower() != "exit":
-                print(answer.content)
-            return answer.content
+            content = answer.content
+            if isinstance(content, list):
+                content = "\n".join(str(item) for item in content)
+            if content and content.lower() != "exit":
+                print(content)
+            return content
         except Exception as e:
             print(f"API key index {idx} failed: {e}")
             time.sleep(1)
@@ -42,6 +45,7 @@ def main():
     prompt = create_prompt()
     print("Enter question (type 'exit' or leave blank to exit):")
     while True:
+        print("--" * 30)
         question = input("> ").strip()
         
         # question = "How many employees are there in the company?"
